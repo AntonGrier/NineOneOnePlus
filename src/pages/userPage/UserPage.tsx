@@ -5,7 +5,8 @@ import { AssistancePage } from './assistance'
 import { UserInfoPage } from './userInfo'
 import CallIcon from '@mui/icons-material/Call'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
-import { makeStyles } from '@mui/styles'
+import { makeStyles, ThemeProvider } from '@mui/styles'
+import { theme } from '../theme'
 
 const useStyles = makeStyles({
   root: {
@@ -13,6 +14,20 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '100%',
+  },
+  content: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    overflowY: 'auto',
+    marginBottom: '10vh',
+  },
+  bottomNavigation: {
+    position: 'fixed',
+    bottom: '0',
+    width: '100%',
+    zIndex: 99,
   },
 })
 
@@ -22,15 +37,20 @@ enum Location {
 }
 
 export const UserPage: FunctionComponent<RouteComponentProps> = () => {
-  const { root } = useStyles()
+  const { root, content, bottomNavigation } = useStyles()
   const [location, setLocation] = useState(Location.Assistance)
-
-  // useEffect(() => {}, [location])
 
   return (
     <div className={root}>
-      {location === Location.Assistance ? <AssistancePage /> : <UserInfoPage />}
+      <div className={content}>
+        {location === Location.Assistance ? (
+          <AssistancePage />
+        ) : (
+          <UserInfoPage />
+        )}
+      </div>
       <BottomNavigation
+        className={bottomNavigation}
         showLabels
         value={location}
         onChange={(_, newValue) => setLocation(newValue)}
