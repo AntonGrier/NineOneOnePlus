@@ -7,6 +7,7 @@ import CallIcon from '@mui/icons-material/Call'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import { makeStyles, ThemeProvider } from '@mui/styles'
 import { theme } from '../theme'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +30,12 @@ const useStyles = makeStyles({
     width: '100%',
     zIndex: 99,
   },
+  bottomNavigationAction: {
+    color: 'black!important',
+  },
+  selected: {
+    color: `${theme.palette.primary.main}!important`,
+  },
 })
 
 enum Location {
@@ -37,7 +44,8 @@ enum Location {
 }
 
 export const UserPage: FunctionComponent<RouteComponentProps> = () => {
-  const { root, content, bottomNavigation } = useStyles()
+  const { root, content, bottomNavigation, selected, bottomNavigationAction } =
+    useStyles()
   const [location, setLocation] = useState(Location.Assistance)
 
   return (
@@ -56,11 +64,19 @@ export const UserPage: FunctionComponent<RouteComponentProps> = () => {
         onChange={(_, newValue) => setLocation(newValue)}
       >
         <BottomNavigationAction
+          className={clsx(
+            bottomNavigationAction,
+            location === Location.Assistance && selected,
+          )}
           value={Location.Assistance}
           label='Assistance'
           icon={<CallIcon />}
         />
         <BottomNavigationAction
+          className={clsx(
+            bottomNavigationAction,
+            location === Location.UserInfo && selected,
+          )}
           value={Location.UserInfo}
           label='User Info'
           icon={<PersonOutlineIcon />}

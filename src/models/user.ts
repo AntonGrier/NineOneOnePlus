@@ -1,7 +1,7 @@
 import { BloodType } from './bloodType'
 
 interface KeyValueMap {
-  [key: string]: any
+  [key: string]: any | any[]
 }
 
 export interface User extends KeyValueMap {
