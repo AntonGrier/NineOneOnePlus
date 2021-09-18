@@ -1,7 +1,7 @@
 import { Grid, Tab, Tabs } from '@mui/material'
 import { Box } from '@mui/system'
 import { RouteComponentProps } from '@reach/router'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import { TopBar } from './TopBar'
 import PhoneIcon from '@mui/icons-material/Phone'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -9,13 +9,31 @@ import PersonPinIcon from '@mui/icons-material/PersonPin'
 import { TabPanel } from './TabPanel'
 import { InfoTab, VideoTab } from './Tabs'
 import { ChatTab } from './Tabs/ChatTab'
+import { getTwilioToken } from './Tabs/VideoTab/utils'
 
 export const DashboardPage: FunctionComponent<RouteComponentProps> = () => {
   const [value, setValue] = useState(0)
+  const [token, setToken] = useState<string | undefined>(undefined)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
+
+  // fetch twilio token
+  useEffect(() => {
+    const fetchTwilioToken = async () => {
+      try {
+        const token = await getTwilioToken('username') // TODO: fill in username with something?
+        setToken(token)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        // do something
+      }
+    }
+
+    fetchTwilioToken()
+  }, [])
 
   return (
     <Box
