@@ -6,6 +6,7 @@ import { TopBar } from './TopBar'
 import PhoneIcon from '@mui/icons-material/Phone'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import PersonPinIcon from '@mui/icons-material/PersonPin'
+import { GeoMap } from './../userPage/GeoMap'
 import { TabPanel } from './TabPanel'
 import { InfoTab, VideoTab } from './Tabs'
 import { ChatTab } from './Tabs/ChatTab'
@@ -58,7 +59,7 @@ export const DashboardPage: FunctionComponent<RouteComponentProps> = () => {
             </Box>
           </Grid>
           <Grid item xs={7} sx={{ backgroundColor: '#ccc' }}>
-            {/* Map should go here */}
+            <GeoMap></GeoMap>
           </Grid>
         </Grid>
       </Box>
