@@ -58,7 +58,7 @@ const fieldGroups: FieldGroups = {
 }
 
 export const UserInfoForm = () => {
-  const { values, handleSubmit } = useFormikContext<User>()
+  const { values, handleSubmit, setFieldValue } = useFormikContext<User>()
 
   const field = ({ label, fieldName, type, listItemLabel }: FieldProps) =>
     type === FieldType.List ? (
@@ -132,6 +132,7 @@ export const UserInfoForm = () => {
         label={label}
         defaultValue={values[fieldName]}
         variant='outlined'
+        onChange={(e) => setFieldValue(fieldName, e.target.value)}
       />
     )
 

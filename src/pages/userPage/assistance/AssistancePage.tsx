@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { Dispatch, FunctionComponent, SetStateAction } from 'react'
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk'
 import { makeStyles } from '@mui/styles'
 import { IconButton, Typography } from '@mui/material'
@@ -27,7 +27,10 @@ const useStyles = makeStyles({
   },
 })
 
-export const AssistancePage: FunctionComponent = () => {
+export const AssistancePage: FunctionComponent<{
+  startTimer: () => void
+  setCalling: Dispatch<SetStateAction<boolean>>
+}> = ({ startTimer, setCalling }) => {
   const { root, icon, iconButton, title } = useStyles()
 
   return (
@@ -38,6 +41,8 @@ export const AssistancePage: FunctionComponent = () => {
       <IconButton
         onClick={() => {
           navigate('call')
+          startTimer()
+          setCalling(true)
         }}
         className={iconButton}
       >
