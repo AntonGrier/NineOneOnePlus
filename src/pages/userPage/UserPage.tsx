@@ -5,7 +5,8 @@ import { AssistancePage } from './assistance'
 import { UserInfoPage } from './userInfo'
 import CallIcon from '@mui/icons-material/Call'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
-import { makeStyles } from '@mui/styles'
+import { makeStyles, ThemeProvider } from '@mui/styles'
+import { theme } from '../theme'
 
 const useStyles = makeStyles({
   root: {
