@@ -1,10 +1,10 @@
-import ReactMapboxGl, { MapContext, Layer, Feature } from 'react-mapbox-gl'
-import { RouteComponentProps } from '@reach/router'
-import { FunctionComponent, useEffect, useState } from 'react'
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl'
+// import { RouteComponentProps } from '@reach/router'
+// import { FunctionComponent, useEffect, useState } from 'react'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { makeStyles } from '@mui/styles'
+// import { makeStyles } from '@mui/styles'
 import { Marker } from 'react-mapbox-gl'
-import Location from './../userPage/location.png'
+import Location from './location.png'
 import { GeoJSONLayer } from 'react-mapbox-gl'
 
 const Map = ReactMapboxGl({
@@ -13,19 +13,20 @@ const Map = ReactMapboxGl({
 })
 
 export const GeoMap = () => {
-  const location = 'I am here!'
+  const location = 'User Location'
   const geojson = {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [-0.13235092163085938, 51.518250335096376],
+      coordinates: [-123.11099370476167, 49.288940979437946],
     },
     properties: {
-      name: 'London',
+      name: 'Canada',
     },
   }
   return (
     <Map
+      center={[-123.11099370476167, 49.288940979437946]}
       style='mapbox://styles/mapbox/streets-v8'
       containerStyle={{
         height: '100%',
@@ -33,22 +34,21 @@ export const GeoMap = () => {
       }}
     >
       <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
-        <Feature coordinates={[-0.13235092163085938, 51.518250335096376]} />
+        <Feature coordinates={[-123.11099370476167, 49.288940979437946]} />
       </Layer>
       <GeoJSONLayer
         type='circle'
         id='marker2'
         data={geojson}
         symbolLayout={{
-          'icon-image': 'harbor-15',
           'text-field': location,
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'text-offset': [0, 0.6],
+          'text-offset': [0, 0],
           'text-anchor': 'top',
         }}
       />
       <Marker
-        coordinates={[-0.13235092163085938, 51.518250335096376]}
+        coordinates={[-123.11099370476167, 49.288940979437946]}
         anchor='bottom'
       >
         <img src={Location} />
