@@ -2,10 +2,6 @@ import { makeStyles } from '@mui/styles'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
 import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled'
-import VolumeUpIcon from '@mui/icons-material/VolumeUp'
-import VolumeOffIcon from '@mui/icons-material/VolumeOff'
-import MicIcon from '@mui/icons-material/Mic'
-import MicOffIcon from '@mui/icons-material/MicOff'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { IconButton, Typography } from '@mui/material'
 import { navigate, RouteComponentProps } from '@reach/router'
@@ -18,7 +14,6 @@ import {
 } from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import clsx from 'clsx'
-import { formatCallDuration } from '../../../utils'
 
 const useStyles = makeStyles({
   root: {
