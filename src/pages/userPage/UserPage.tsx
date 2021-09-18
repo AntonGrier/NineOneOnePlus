@@ -14,6 +14,20 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     height: '100%',
   },
+  content: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    overflowY: 'auto',
+    marginBottom: '10vh',
+  },
+  bottomNavigation: {
+    position: 'fixed',
+    bottom: '0',
+    width: '100%',
+    zIndex: 99,
+  },
 })
 
 enum Location {
@@ -22,15 +36,20 @@ enum Location {
 }
 
 export const UserPage: FunctionComponent<RouteComponentProps> = () => {
-  const { root } = useStyles()
+  const { root, content, bottomNavigation } = useStyles()
   const [location, setLocation] = useState(Location.Assistance)
-
-  // useEffect(() => {}, [location])
 
   return (
     <div className={root}>
-      {location === Location.Assistance ? <AssistancePage /> : <UserInfoPage />}
+      <div className={content}>
+        {location === Location.Assistance ? (
+          <AssistancePage />
+        ) : (
+          <UserInfoPage />
+        )}
+      </div>
       <BottomNavigation
+        className={bottomNavigation}
         showLabels
         value={location}
         onChange={(_, newValue) => setLocation(newValue)}
