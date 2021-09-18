@@ -1,15 +1,24 @@
 import { makeStyles } from '@mui/styles'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
+import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import VolumeOffIcon from '@mui/icons-material/VolumeOff'
 import MicIcon from '@mui/icons-material/Mic'
 import MicOffIcon from '@mui/icons-material/MicOff'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { IconButton, Typography } from '@mui/material'
-import { RouteComponentProps } from '@reach/router'
-import { FunctionComponent, useState } from 'react'
+import { navigate, RouteComponentProps } from '@reach/router'
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import clsx from 'clsx'
+import { formatCallDuration } from '../../../utils'
 
 const useStyles = makeStyles({
   root: {
@@ -19,6 +28,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     height: '100%',
     background: 'black',
+    position: 'relative',
   },
   iconFooter: {},
   icon: {
@@ -39,23 +49,37 @@ const useStyles = makeStyles({
   },
 })
 
-export const CallPage: FunctionComponent<RouteComponentProps> = () => {
+interface CallPageProps extends RouteComponentProps {
+  callDuration: string
+  resetTimer: () => void
+  setCalling: Dispatch<SetStateAction<boolean>>
+}
+
+export const CallPage: FunctionComponent<CallPageProps> = ({
+  callDuration,
+  resetTimer,
+  setCalling,
+}) => {
   const { root, iconFooter, icon, iconRed, userProfile } = useStyles()
   const [videoEnabled, setVideoEnabled] = useState(false)
-  const [audioMuted, setAudioMuted] = useState(true)
-  const [muted, setMuted] = useState(true)
 
   return (
     <div className={root}>
+      <IconButton
+        style={{ position: 'absolute', left: '5%', top: '5%' }}
+        onClick={() => navigate('/')}
+      >
+        <ArrowBackIosIcon fontSize='large' style={{ color: 'white' }} />
+      </IconButton>
       <div className={userProfile}>
         <IconButton disabled style={{ fontSize: '100px' }}>
           <AccountCircleIcon fontSize='inherit' style={{ color: 'white' }} />
         </IconButton>
         <Typography style={{ color: 'white' }} variant='body1'>
-          Liang Liu
+          Operator
         </Typography>
         <Typography style={{ color: 'white' }} variant='caption'>
-          2:21
+          {callDuration}
         </Typography>
       </div>
       <div className={iconFooter}>
@@ -71,22 +95,14 @@ export const CallPage: FunctionComponent<RouteComponentProps> = () => {
         </IconButton>
 
         <IconButton
-          onClick={() => setAudioMuted((prev) => !prev)}
+          onClick={() => {
+            setCalling(false)
+            navigate('/')
+            resetTimer()
+          }}
           disableRipple
         >
-          {audioMuted ? (
-            <VolumeOffIcon fontSize='large' className={clsx(icon, iconRed)} />
-          ) : (
-            <VolumeUpIcon fontSize='large' className={icon} />
-          )}
-        </IconButton>
-
-        <IconButton onClick={() => setMuted((prev) => !prev)} disableRipple>
-          {muted ? (
-            <MicIcon fontSize='large' className={icon} />
-          ) : (
-            <MicOffIcon fontSize='large' className={clsx(icon, iconRed)} />
-          )}
+          <PhoneDisabledIcon fontSize='large' className={clsx(icon, iconRed)} />
         </IconButton>
       </div>
     </div>

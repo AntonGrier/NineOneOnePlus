@@ -1,16 +1,23 @@
-import { BottomNavigation, BottomNavigationAction } from '@mui/material'
-import { RouteComponentProps } from '@reach/router'
-import { FunctionComponent, useEffect, useState } from 'react'
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  IconButton,
+  Typography,
+} from '@mui/material'
+import { navigate, RouteComponentProps } from '@reach/router'
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react'
 import { AssistancePage } from './assistance'
 import { UserInfoPage } from './userInfo'
 import CallIcon from '@mui/icons-material/Call'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
-import { makeStyles, ThemeProvider } from '@mui/styles'
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk'
+import { makeStyles } from '@mui/styles'
 import { theme } from '../theme'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
   root: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -34,7 +41,7 @@ const useStyles = makeStyles({
     color: 'black!important',
   },
   selected: {
-    color: `${theme.palette.primary.main}!important`,
+    color: `${theme.palette.primary.dark}!important`,
   },
 })
 
@@ -43,16 +50,63 @@ enum Location {
   UserInfo = 'UserInfo',
 }
 
-export const UserPage: FunctionComponent<RouteComponentProps> = () => {
+interface UserPageProps extends RouteComponentProps {
+  calling: boolean
+  setCalling: Dispatch<SetStateAction<boolean>>
+  startTimer: () => void
+  callDuration: string
+}
+
+export const UserPage: FunctionComponent<UserPageProps> = ({
+  calling,
+  setCalling,
+  startTimer,
+  callDuration,
+}) => {
   const { root, content, bottomNavigation, selected, bottomNavigationAction } =
     useStyles()
   const [location, setLocation] = useState(Location.Assistance)
 
   return (
     <div className={root}>
+      {calling && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            position: 'absolute',
+            right: '4%',
+            bottom: '8%',
+          }}
+        >
+          <IconButton
+            onClick={() => navigate('/call')}
+            style={{
+              fontSize: '40px',
+              marginBottom: '-10px',
+            }}
+          >
+            <PhoneInTalkIcon
+              fontSize='inherit'
+              style={{
+                padding: '10px',
+                color: 'black',
+                backgroundColor: '#4DBBEE',
+                borderRadius: '50px',
+              }}
+            />
+          </IconButton>
+          <Typography variant='caption'>{callDuration}</Typography>
+        </div>
+      )}
       <div className={content}>
         {location === Location.Assistance ? (
-          <AssistancePage />
+          calling ? (
+            <></> // TODO: MAP PAGE
+          ) : (
+            <AssistancePage setCalling={setCalling} startTimer={startTimer} />
+          )
         ) : (
           <UserInfoPage />
         )}
