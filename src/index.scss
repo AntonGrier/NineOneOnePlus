@@ -12,8 +12,15 @@ code {
     monospace;
 }
 
+// body,
+// html {
+//   margin: 0;
+//   height: 100%;
+// }
+
+html,
 body,
-html {
-  margin: 0;
+#root,
+#router {
   height: 100%;
 }

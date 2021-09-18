@@ -3,7 +3,7 @@ import { DashboardPage } from './dashboardPage'
 import { UserPage } from './userPage'
 export const App = () => {
   return (
-    <Router>
+    <Router id='router'>
       <UserPage path='/' />
       <DashboardPage path='dashboard' />
     </Router>
