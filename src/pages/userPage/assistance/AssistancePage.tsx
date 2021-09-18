@@ -2,38 +2,46 @@ import { FunctionComponent } from 'react'
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk'
 import { makeStyles } from '@mui/styles'
 import { IconButton, Typography } from '@mui/material'
+import { navigate } from '@reach/router'
 
 const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     height: '100%',
+  },
+  iconButton: {
+    fontSize: '100px!important',
+    padding: 0,
   },
   icon: {
     background: '#4DBBEE',
     color: 'white',
-    borderRadius: '22px',
-
-    width: '100px',
-    height: '100px',
+    borderRadius: '60px',
+    padding: '10px',
+  },
+  title: {
+    textAlign: 'center',
   },
 })
 
 export const AssistancePage: FunctionComponent = () => {
-  const { root, icon } = useStyles()
+  const { root, icon, iconButton, title } = useStyles()
 
   return (
-    <div>
-      <Typography>Title</Typography>
+    <div className={root}>
+      <Typography variant='h3' className={title}>
+        First Responders
+      </Typography>
       <IconButton
-        style={{
-          borderRadius: '22px',
-          // width: '100px',
-          // height: '100px',
+        onClick={() => {
+          navigate('call')
         }}
+        className={iconButton}
       >
-        <PhoneInTalkIcon className={icon} />
+        <PhoneInTalkIcon fontSize='inherit' className={icon} />
       </IconButton>
     </div>
   )
