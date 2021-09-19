@@ -40,6 +40,7 @@ export const UserInfoFormController = () => {
     }: any,
     actions: any,
   ) => {
+    console.log(name, age, address)
     try {
       const emergency_contact = emergencyContact
       const blood_type = bloodType

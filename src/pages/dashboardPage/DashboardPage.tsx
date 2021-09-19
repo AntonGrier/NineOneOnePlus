@@ -4,8 +4,8 @@ import { RouteComponentProps } from '@reach/router'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { TopBar } from './TopBar'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
-import VideocamIcon from '@mui/icons-material/Videocam'
 import TextsmsIcon from '@mui/icons-material/Textsms'
+import PhoneIcon from '@mui/icons-material/Phone'
 import { GeoMap } from '../../ui'
 import { TabPanel } from './TabPanel'
 import { InfoTab, VideoTab } from './Tabs'
@@ -65,7 +65,7 @@ export const DashboardPage: FunctionComponent<RouteComponentProps> = () => {
                 sx={{ flexGrow: 1 }}
                 label='Info'
               />
-              <Tab icon={<VideocamIcon />} sx={{ flexGrow: 1 }} label='Video' />
+              <Tab icon={<PhoneIcon />} sx={{ flexGrow: 1 }} label='Calls' />
               <Tab icon={<TextsmsIcon />} sx={{ flexGrow: 1 }} label='Chat' />
             </Tabs>
             <Box sx={{ flexGrow: 1, display: 'flex' }}>
