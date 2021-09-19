@@ -23,7 +23,6 @@ export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <div
         style={{
-          backgroundColor: 'rgb(249, 81, 81, 0.2)',
           height: '100%',
           width: '100%',
           display: 'flex',

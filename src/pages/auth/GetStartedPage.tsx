@@ -7,7 +7,6 @@ export const GetStartedPage: FunctionComponent<RouteComponentProps> = () => {
   return (
     <div
       style={{
-        backgroundColor: 'rgb(249, 81, 81, 0.2)',
         height: '100%',
         width: '100%',
         display: 'flex',

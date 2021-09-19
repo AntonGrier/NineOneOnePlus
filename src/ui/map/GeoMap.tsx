@@ -136,7 +136,6 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
 
         // rotate around a point
         function rotateCamera(timestamp: number) {
-          console.log(timestamp)
           // clamp the rotation between 0 -360 degrees
           // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
           map.rotateTo((timestamp / 6) % 360, { duration: 0 })
