@@ -43,6 +43,7 @@ export const UserInfoFormController = () => {
     try {
       const emergency_contact = emergencyContact
       const blood_type = bloodType
+      const bmi = BMI
       const userData: any = {
         name,
         age,
@@ -52,7 +53,7 @@ export const UserInfoFormController = () => {
         allergies,
         conditions,
         medications,
-        BMI,
+        bmi,
         height,
         weight,
       }
