@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from '@mui/material'
-import { RouteComponentProps } from '@reach/router'
+import { navigate, RouteComponentProps } from '@reach/router'
 import { FieldArray, Form, Formik, useFormikContext } from 'formik'
 import { Fragment, FunctionComponent, useState } from 'react'
 import { makeStyles } from '@mui/styles'
@@ -69,6 +69,7 @@ export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
         userdata.foreach((field: any) => {
           handleSuccess(`Succesfully created an account`)
         })
+        navigate('/')
       }
     } catch (err) {
       handleErrors(err, 'Sign-up error occurred', {

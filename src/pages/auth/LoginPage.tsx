@@ -16,6 +16,7 @@ export const LoginPage: FunctionComponent<RouteComponentProps> = () => {
     setSubmitting(true)
     setTimeout(() => {
       setSubmitting(false)
+      navigate('/')
     }, 1500)
   }
 
