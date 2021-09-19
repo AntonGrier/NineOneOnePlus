@@ -1,16 +1,29 @@
-import { Button, TextField, Typography } from '@mui/material'
+import { Button, TextField, Typography, IconButton } from '@mui/material'
 import { navigate, RouteComponentProps } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { FunctionComponent, useState } from 'react'
+import { makeStyles } from '@mui/styles'
+import { Avatar } from './../../ui/Avatar'
+import { UserInfoFormController } from './../userPage/userInfo/UserInfoFormController'
+import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
 const initialValues = {
   login: '',
   password: '',
 }
-
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: '100%',
+    paddingTop: '10vh',
+  },
+})
 export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
+  const { root } = useStyles()
 
   const handleSubmit = () => {
     setSubmitting(true)
@@ -63,6 +76,24 @@ export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
               </Typography>
             )}
           </div>
+          <div className={root}>
+            <Typography variant='h4'>Your Information</Typography>
+            <div style={{ position: 'relative' }}>
+              <Avatar />
+              <IconButton
+                style={{
+                  color: '#F95151',
+                  position: 'absolute',
+                  bottom: '0',
+                  left: '80%',
+                }}
+              >
+                <ControlPointIcon fontSize='large' />
+              </IconButton>
+            </div>
+            <UserInfoFormController />
+          </div>
+
           <Button
             disabled={submitting}
             color='primary'
