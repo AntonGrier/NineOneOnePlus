@@ -1913,12 +1913,6 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-<<<<<<< HEAD
-"@twilio/webrtc@4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@twilio/webrtc/-/webrtc-4.5.1.tgz#9a69b8f3709624b215e9481097626b1d3ae879ba"
-  integrity sha512-0GwnffxJ71jm/7sYD8MYHzZRCR59p7KYqiMO8/Fmny7S4L0s8Ms36ghUUfCE7x/XuWjAC4FU6L/DkFN1Ewuu8Q==
-=======
 "@turf/bbox@4.7.3":
   version "4.7.3"
   resolved "https://registry.npmjs.org/@turf/bbox/-/bbox-4.7.3.tgz"
@@ -1935,7 +1929,11 @@
   version "4.7.4"
   resolved "https://registry.npmjs.org/@turf/meta/-/meta-4.7.4.tgz"
   integrity sha1-beLx6YkLj2S2aeS0fAmyCJMGOXc=
->>>>>>> 9672b988235c0c050cf92fda49a0a4d41fe9c647
+
+"@twilio/webrtc@4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@twilio/webrtc/-/webrtc-4.5.1.tgz#9a69b8f3709624b215e9481097626b1d3ae879ba"
+  integrity sha512-0GwnffxJ71jm/7sYD8MYHzZRCR59p7KYqiMO8/Fmny7S4L0s8Ms36ghUUfCE7x/XuWjAC4FU6L/DkFN1Ewuu8Q==
 
 "@types/anymatch@*":
   version "1.3.1"
@@ -6284,11 +6282,6 @@ hyphenate-style-name@^1.0.3:
   resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz"
   integrity sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==
 
-i@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/i/-/i-0.3.6.tgz#d96c92732076f072711b6b10fd7d4f65ad8ee23d"
-  integrity sha1-2WyScyB28HJxG2sQ/X1PZa2O4j0=
-
 iconv-lite@0.4.24:
   version "0.4.24"
   resolved "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
@@ -9708,17 +9701,15 @@ postcss@^8.1.0:
     nanoid "^3.1.20"
     source-map "^0.6.1"
 
-<<<<<<< HEAD
-precond@0.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/precond/-/precond-0.2.3.tgz#aa9591bcaa24923f1e0f4849d240f47efc1075ac"
-  integrity sha1-qpWRvKokkj8eD0hJ0kD0fvwQdaw=
-=======
 potpack@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/potpack/-/potpack-1.0.1.tgz"
   integrity sha512-15vItUAbViaYrmaB/Pbw7z6qX2xENbFSTA7Ii4tgbPtasxm5v6ryKhKtL91tpWovDJzTiZqdwzhcFBCwiMVdVw==
->>>>>>> 9672b988235c0c050cf92fda49a0a4d41fe9c647
+
+precond@0.2:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/precond/-/precond-0.2.3.tgz#aa9591bcaa24923f1e0f4849d240f47efc1075ac"
+  integrity sha1-qpWRvKokkj8eD0hJ0kD0fvwQdaw=
 
 prelude-ls@^1.2.1:
   version "1.2.1"

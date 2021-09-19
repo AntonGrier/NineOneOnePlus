@@ -5,13 +5,7 @@ import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { IconButton, Typography } from '@mui/material'
 import { navigate, RouteComponentProps } from '@reach/router'
-import {
-  Dispatch,
-  FunctionComponent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react'
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import clsx from 'clsx'
 
