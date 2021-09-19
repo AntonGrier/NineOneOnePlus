@@ -1,11 +1,13 @@
+import { Box } from '@mui/system'
 import React, { useState, useEffect, useRef } from 'react'
 
 interface Props {
   participant: any
-  currentUser: boolean
+  currentUser?: boolean
+  isMobile?: boolean
 }
 
-const Participant = ({ participant, currentUser }: Props) => {
+const Participant = ({ participant, currentUser, isMobile }: Props) => {
   const [videoTracks, setVideoTracks] = useState<any>([])
   const [audioTracks, setAudioTracks] = useState<any>([])
 
@@ -72,32 +74,80 @@ const Participant = ({ participant, currentUser }: Props) => {
   }, [audioTracks])
 
   return currentUser ? (
-    <CurrentUserVideo audioRef={audioRef} videoRef={videoRef} />
+    <CurrentUserVideo
+      audioRef={audioRef}
+      videoRef={videoRef}
+      isMobile={isMobile}
+    />
   ) : (
-    <OtherUserVideo audioRef={audioRef} videoRef={videoRef} />
+    <OtherUserVideo
+      audioRef={audioRef}
+      videoRef={videoRef}
+      isMobile={isMobile}
+    />
   )
 }
 
 interface VideoProps {
   videoRef: any
   audioRef: any
+  isMobile?: boolean
 }
 
-export const CurrentUserVideo = ({ videoRef, audioRef }: VideoProps) => {
+export const OtherUserVideo = ({
+  videoRef,
+  audioRef,
+  isMobile,
+}: VideoProps) => {
   return (
-    <div>
-      <video ref={videoRef} autoPlay={true} />
+    <Box
+      sx={
+        isMobile
+          ? { height: '100%', position: 'fixed', zIndex: 1, width: '100%' }
+          : { height: '100%' }
+      }
+    >
+      <video
+        ref={videoRef}
+        autoPlay={true}
+        style={{
+          objectFit: 'cover',
+          width: '100%',
+          height: '100%',
+        }}
+      />
       <audio ref={audioRef} autoPlay={true} muted={true} />
-    </div>
+    </Box>
   )
 }
 
-export const OtherUserVideo = ({ videoRef, audioRef }: VideoProps) => {
+export const CurrentUserVideo = ({
+  isMobile,
+  videoRef,
+  audioRef,
+}: VideoProps) => {
   return (
-    <div>
-      <video ref={videoRef} autoPlay={true} />
+    <Box
+      sx={{
+        width: isMobile ? '160px' : '200px',
+        height: 'auto',
+        position: 'absolute',
+        bottom: isMobile ? 80 : 20,
+        right: 20,
+        zIndex: 2,
+      }}
+    >
+      <video
+        style={{
+          objectFit: 'cover',
+          width: '100%',
+          height: '100%',
+        }}
+        ref={videoRef}
+        autoPlay={true}
+      />
       <audio ref={audioRef} autoPlay={true} muted={true} />
-    </div>
+    </Box>
   )
 }
 

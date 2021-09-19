@@ -4,17 +4,9 @@ import Room from './Room'
 import { getTwilioToken } from './utils'
 
 const VideoChat = () => {
-  const [username, setUsername] = useState('')
-  const [roomName, setRoomName] = useState('')
+  const [username, setUsername] = useState('operator')
+  const [roomName, setRoomName] = useState('room')
   const [token, setToken] = useState(null)
-
-  const handleUsernameChange = useCallback((event) => {
-    setUsername(event.target.value)
-  }, [])
-
-  const handleRoomNameChange = useCallback((event) => {
-    setRoomName(event.target.value)
-  }, [])
 
   const handleSubmit = useCallback(
     async (event) => {
@@ -25,25 +17,11 @@ const VideoChat = () => {
     [roomName, username],
   )
 
-  const handleLogout = useCallback((event) => {
-    setToken(null)
-  }, [])
-
   let render
   if (token) {
-    render = (
-      <Room roomName={roomName} token={token} handleLogout={handleLogout} />
-    )
+    render = <Room roomName={roomName} token={token} />
   } else {
-    render = (
-      <Lobby
-        username={username}
-        roomName={roomName}
-        handleUsernameChange={handleUsernameChange}
-        handleRoomNameChange={handleRoomNameChange}
-        handleSubmit={handleSubmit}
-      />
-    )
+    render = <Lobby handleSubmit={handleSubmit} />
   }
   return render
 }

@@ -34,8 +34,8 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
       center={locationCoordinates}
       style='mapbox://styles/mapbox/streets-v8'
       containerStyle={{
-        height: '100vh',
-        width: '100vw',
+        height: '100%',
+        width: '100%',
       }}
     >
       <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
