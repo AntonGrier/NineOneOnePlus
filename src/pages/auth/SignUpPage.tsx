@@ -4,19 +4,21 @@ import { FieldArray, Form, Formik, useFormikContext } from 'formik'
 import { Fragment, FunctionComponent, useState } from 'react'
 import { makeStyles } from '@mui/styles'
 import { UserFields } from '../../utils/userFields'
-
+import axios from 'axios'
+import { toast, ToastOptions } from 'react-toastify'
+import { handleErrors, handleSuccess } from './../../helpers'
 const INITIAL_VALUES = {
   username: '',
   password: '',
   name: '',
   age: '',
   address: '',
-  emergencyContact: '',
-  bloodType: '',
+  emergency_contact: '',
+  blood_type: '',
   allergies: [],
   conditions: [],
   medications: [],
-  BMI: '',
+  bmi: '',
   height: '',
   weight: '',
 }
@@ -32,8 +34,47 @@ const useStyles = makeStyles({
 })
 
 export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
-  const handleSubmit = (values: any) => {
-    console.log('values', values)
+  const handleSubmit = async (
+    {
+      name,
+      age,
+      address,
+      emergency_contact,
+      blood_type,
+      allergies,
+      conditions,
+      medications,
+      bmi,
+      height,
+      weight,
+    }: any,
+    actions: any,
+  ) => {
+    const userdata: any = {
+      name,
+      age,
+      address,
+      emergency_contact,
+      blood_type,
+      allergies,
+      conditions,
+      medications,
+      bmi,
+      height,
+      weight,
+    }
+    try {
+      const response = await axios.post('/signup', userdata)
+      if (response.status === 200) {
+        userdata.foreach((field: any) => {
+          handleSuccess(`Succesfully created an account`)
+        })
+      }
+    } catch (err) {
+      handleErrors(err, 'Sign-up error occurred', {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
   }
 
   return (
