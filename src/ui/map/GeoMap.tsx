@@ -5,6 +5,12 @@ import Location from './location.png'
 import { GeoJSONLayer } from 'react-mapbox-gl'
 import { FunctionComponent, memo } from 'react'
 import DirectionsCarSharpIcon from '@mui/icons-material/DirectionsCarSharp'
+import mapboxgl from 'mapbox-gl'
+
+/* eslint-disable import/no-webpack-loader-syntax, import/no-unresolved, @typescript-eslint/no-var-requires */
+;(mapboxgl as any).workerClass =
+  require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
+/* eslint-enable import/no-webpack-loader-syntax, import/no-unresolved, @typescript-eslint/no-var-requires*/
 
 const Map = ReactMapboxGl({
   accessToken:
@@ -36,6 +42,53 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
       containerStyle={{
         height: '100%',
         width: '100%',
+      }}
+      onStyleLoad={(map) => {
+        const layers = map.getStyle().layers
+        const labelLayerId = layers
+          ? layers.find(
+              (layer: any) =>
+                layer.type === 'symbol' && layer.layout['text-field'],
+            )?.id
+          : undefined
+        // add fill extrusion layers
+        map.addLayer(
+          {
+            id: 'add-3d-buildings',
+            source: 'composite',
+            'source-layer': 'building',
+            filter: ['==', 'extrude', 'true'],
+            type: 'fill-extrusion',
+            minzoom: 15,
+            paint: {
+              'fill-extrusion-color': '#aaa',
+
+              // Use an 'interpolate' expression to
+              // add a smooth transition effect to
+              // the buildings as the user zooms in.
+              'fill-extrusion-height': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'height'],
+              ],
+              'fill-extrusion-base': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'min_height'],
+              ],
+              'fill-extrusion-opacity': 0.6,
+            },
+          },
+          labelLayerId,
+        )
       }}
     >
       <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
