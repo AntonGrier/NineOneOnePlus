@@ -92,13 +92,16 @@ export const UserPage: FunctionComponent<UserPageProps> = ({
               fontSize='inherit'
               style={{
                 padding: '10px',
-                color: '#4DBBEE',
-                backgroundColor: 'black',
+                color: 'white',
+                backgroundColor: '#F95151',
                 borderRadius: '50px',
               }}
             />
           </IconButton>
-          <Typography variant='caption' style={{ fontWeight: 'bold' }}>
+          <Typography
+            variant='subtitle2'
+            style={{ fontWeight: 'bold', color: '#F95151' }}
+          >
             {callDuration}
           </Typography>
         </div>
@@ -120,7 +123,9 @@ export const UserPage: FunctionComponent<UserPageProps> = ({
           >
             <GeoMap user />
           </div>
-          <div style={{ display: calling ? 'none' : undefined }}>
+          <div
+            style={{ height: '100%', display: calling ? 'none' : undefined }}
+          >
             <AssistancePage setCalling={setCalling} startTimer={startTimer} />
           </div>
         </div>

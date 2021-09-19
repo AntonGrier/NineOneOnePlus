@@ -1,10 +1,11 @@
 import { Dispatch, FunctionComponent, SetStateAction } from 'react'
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk'
 import { makeStyles } from '@mui/styles'
-import { IconButton, Typography } from '@mui/material'
+import { Button, IconButton, Theme, Typography } from '@mui/material'
 import { navigate } from '@reach/router'
+import logo from './../../../ui/logo.png'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<Theme>((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -17,37 +18,39 @@ const useStyles = makeStyles({
     padding: 0,
   },
   icon: {
-    background: '#4DBBEE',
+    background: theme.palette.primary.main,
     color: 'white',
     borderRadius: '60px',
     padding: '10px',
   },
-  title: {
-    textAlign: 'center',
-  },
-})
+}))
 
 export const AssistancePage: FunctionComponent<{
   startTimer: () => void
   setCalling: Dispatch<SetStateAction<boolean>>
 }> = ({ startTimer, setCalling }) => {
-  const { root, icon, iconButton, title } = useStyles()
+  const { root, icon, iconButton } = useStyles()
 
   return (
     <div className={root}>
-      <Typography variant='h3' className={title}>
-        First Responders
-      </Typography>
-      <IconButton
+      <img src={logo} />
+      <Button
+        style={{ borderRadius: '50px', padding: '0 50px' }}
+        variant='contained'
         onClick={() => {
           navigate('call')
           startTimer()
           setCalling(true)
         }}
         className={iconButton}
+        endIcon={
+          <IconButton disabled style={{ fontSize: '40px' }}>
+            <PhoneInTalkIcon fontSize='inherit' className={icon} />
+          </IconButton>
+        }
       >
-        <PhoneInTalkIcon fontSize='inherit' className={icon} />
-      </IconButton>
+        <Typography variant='h4'>Call</Typography>
+      </Button>
     </div>
   )
 }

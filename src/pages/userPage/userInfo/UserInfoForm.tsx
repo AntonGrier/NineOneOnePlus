@@ -146,6 +146,7 @@ export const UserInfoForm = () => {
     <Button
       variant='contained'
       style={{
+        borderRadius: '20px',
         width: '100%',
         marginTop: '20px',
         marginBottom: bottom ? '10vh' : undefined,
