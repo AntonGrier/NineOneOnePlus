@@ -21,8 +21,8 @@ const Map = ReactMapboxGl({
 interface GeoMapProps {
   user?: boolean
 }
-
-const locationCoordinates: any = [-123.11099370476167, 49.288940979437946]
+const locationCoordinates: any = [-73.9826456, 40.7628968]
+const carLocation: any = [-73.9614831, 40.7731791]
 
 const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
   const [clicked, setClicked] = useState(false)
@@ -34,12 +34,12 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
       coordinates: locationCoordinates,
     },
     properties: {
-      name: 'Canada',
+      name: 'United States',
     },
   }
   return (
     <Map
-      center={locationCoordinates}
+      center={user ? locationCoordinates : carLocation}
       style='mapbox://styles/mapbox/streets-v11'
       containerStyle={{
         height: '100%',
@@ -109,6 +109,7 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
             ],
           },
         })
+
         map.addLayer({
           id: 'layer-with-pulsing-dot',
           type: 'symbol',
@@ -129,7 +130,7 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
 
           // start rotating
           if (!clicked) {
-            setTimeout(() => rotateCamera(90 * 6), 3800)
+            setTimeout(() => rotateCamera(90 * 4), 3800)
             setClicked(true)
           }
         })
@@ -138,33 +139,33 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
         function rotateCamera(timestamp: number) {
           // clamp the rotation between 0 -360 degrees
           // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
-          map.rotateTo((timestamp / 6) % 360, { duration: 0 })
+          map.rotateTo((timestamp / 4) % 360, { duration: 0 })
           // Request the next frame of the animation.
           setTimeout(() => rotateCamera(timestamp + 1), 10)
         }
       }}
     >
-      {/* <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
+      <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
         <Feature coordinates={locationCoordinates} />
-      </Layer> */}
+      </Layer>
       <GeoJSONLayer
         type='circle'
-        id='marker2'
+        id='textt'
         data={geojson}
         symbolLayout={{
           'text-field': location,
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'text-offset': [0, 0],
-          'text-anchor': 'top',
+          'text-offset': [0, -2],
+          'text-anchor': 'bottom',
         }}
       />
-      {/* <Marker coordinates={locationCoordinates} anchor='bottom'>
+      <Marker coordinates={carLocation} anchor='bottom'>
         {user ? (
           <DirectionsCarSharpIcon fontSize='large' />
         ) : (
           <img src={Location} />
         )}
-      </Marker> */}
+      </Marker>
     </Map>
   )
 }
