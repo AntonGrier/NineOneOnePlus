@@ -106,10 +106,18 @@ export const UserPage: FunctionComponent<UserPageProps> = ({
       <div className={content}>
         <div
           style={{
-            display: location !== Location.Assistance ? 'none' : 'flex',
+            display: location !== Location.Assistance ? 'none' : undefined,
+            width: '100%',
+            height: '100%',
           }}
         >
-          <div style={{ display: !calling ? 'none' : undefined }}>
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: !calling ? 'none' : undefined,
+            }}
+          >
             <GeoMap user />
           </div>
           <div style={{ display: calling ? 'none' : undefined }}>
