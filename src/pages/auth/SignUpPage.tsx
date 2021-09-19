@@ -34,48 +34,54 @@ const useStyles = makeStyles({
 })
 
 export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
-  const handleSubmit = async (
-    {
-      name,
-      age,
-      address,
-      emergency_contact,
-      blood_type,
-      allergies,
-      conditions,
-      medications,
-      bmi,
-      height,
-      weight,
-    }: any,
-    actions: any,
-  ) => {
-    const userdata: any = {
-      name,
-      age,
-      address,
-      emergency_contact,
-      blood_type,
-      allergies,
-      conditions,
-      medications,
-      bmi,
-      height,
-      weight,
-    }
-    try {
-      const response = await axios.post('/signup', userdata)
-      if (response.status === 200) {
-        userdata.foreach((field: any) => {
-          handleSuccess(`Succesfully created an account`)
-        })
-        navigate('/')
-      }
-    } catch (err) {
-      handleErrors(err, 'Sign-up error occurred', {
-        position: toast.POSITION.TOP_RIGHT,
-      })
-    }
+  // const handleSubmit = async (
+  //   {
+  //     name,
+  //     age,
+  //     address,
+  //     emergency_contact,
+  //     blood_type,
+  //     allergies,
+  //     conditions,
+  //     medications,
+  //     bmi,
+  //     height,
+  //     weight,
+  //   }: any,
+  //   actions: any,
+  // ) => {
+  //   const userdata: any = {
+  //     name,
+  //     age,
+  //     address,
+  //     emergency_contact,
+  //     blood_type,
+  //     allergies,
+  //     conditions,
+  //     medications,
+  //     bmi,
+  //     height,
+  //     weight,
+  //   }
+  //   try {
+  //     const response = await axios.post('/signup', userdata)
+  //     if (response.status === 200) {
+  //       userdata.foreach((field: any) => {
+  //         handleSuccess(`Succesfully created an account`)
+  //       })
+  //       navigate('/')
+  //     }
+  //   } catch (err) {
+  //     handleErrors(err, 'Sign-up error occurred', {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     })
+  //   }
+  // }
+
+  const handleSubmit = () => {
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
   }
 
   return (
