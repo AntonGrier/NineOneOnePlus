@@ -3,7 +3,7 @@ import axios from 'axios'
 const URI =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:5000'
-    : 'https://firstresponders.herokuapp.com' // TODO: change to production URL
+    : 'https://htn2021be.herokuapp.com/'
 
 export const getTwilioToken = async (
   username: string,
