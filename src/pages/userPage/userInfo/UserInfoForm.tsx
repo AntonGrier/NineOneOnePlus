@@ -1,6 +1,6 @@
 import { Button, TextField, Typography } from '@mui/material'
 import { FieldArray, Form, useFormikContext } from 'formik'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { User } from '../../../models'
 
 enum FieldType {
@@ -57,6 +57,7 @@ const fieldGroups: FieldGroups = {
 }
 
 export const UserInfoForm = () => {
+  const [editing, setEditing] = useState(false)
   const { values, handleSubmit, setFieldValue } = useFormikContext<User>()
 
   const field = ({ label, fieldName, type, listItemLabel }: FieldProps) =>
@@ -84,6 +85,7 @@ export const UserInfoForm = () => {
                   style={{ position: 'relative', margin: '10px 0' }}
                 >
                   <TextField
+                    disabled={!editing}
                     label={`${listItemLabel} ${index + 1}`}
                     name={`${fieldName}.${index}`}
                     type={`${fieldName}.${index}`}
@@ -102,12 +104,14 @@ export const UserInfoForm = () => {
                     }}
                   >
                     <Button
+                      disabled={!editing}
                       style={{ height: '50%' }}
                       onClick={() => arrayHelpers.remove(index)}
                     >
                       <Typography variant='h5'>-</Typography>
                     </Button>
                     <Button
+                      disabled={!editing}
                       style={{ height: '50%' }}
                       onClick={() => arrayHelpers.insert(index, '')}
                     >
@@ -117,13 +121,16 @@ export const UserInfoForm = () => {
                 </div>
               ))
             ) : (
-              <Button onClick={() => arrayHelpers.push('')}>Add</Button>
+              <Button disabled={!editing} onClick={() => arrayHelpers.push('')}>
+                Add
+              </Button>
             )}
           </>
         )}
       />
     ) : (
       <TextField
+        disabled={!editing}
         style={{ margin: '10px 0' }}
         key={fieldName}
         type={fieldName}
@@ -135,10 +142,38 @@ export const UserInfoForm = () => {
       />
     )
 
+  const editButton = (bottom?: boolean) => (
+    <Button
+      variant='contained'
+      style={{
+        width: '100%',
+        marginTop: '20px',
+        marginBottom: bottom ? '10vh' : undefined,
+      }}
+      color='primary'
+      onClick={() => {
+        if (editing) {
+          handleSubmit()
+          setEditing(false)
+        } else {
+          setEditing(true)
+        }
+      }}
+      type={editing ? 'submit' : undefined}
+    >
+      {
+        <Typography style={{ fontWeight: 'bold' }} variant='subtitle1'>
+          {editing ? 'Save' : 'Edit'}
+        </Typography>
+      }
+    </Button>
+  )
+
   return (
     <Form
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
+      {editButton()}
       {Object.keys(fieldGroups).map((group) => {
         return (
           <Fragment key={group}>
@@ -157,17 +192,7 @@ export const UserInfoForm = () => {
           </Fragment>
         )
       })}
-      <Button
-        variant='contained'
-        style={{ width: '100%', marginTop: '20px', marginBottom: '10vh' }}
-        color='primary'
-        onClick={() => handleSubmit()}
-        type='submit'
-      >
-        <Typography style={{ fontWeight: 'bold' }} variant='subtitle1'>
-          Save
-        </Typography>
-      </Button>
+      {editButton(true)}
     </Form>
   )
 }
