@@ -25,7 +25,7 @@ export const UserInfoPage: FunctionComponent = () => {
         <Avatar />
         <IconButton
           style={{
-            color: 'black',
+            color: '#F95151',
             position: 'absolute',
             bottom: '0',
             left: '80%',

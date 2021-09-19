@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import { navigate, RouteComponentProps } from '@reach/router'
 import { FunctionComponent } from 'react'
-import logo from './911plus.png'
+import logo from './../../ui/logo.png'
 
 export const GetStartedPage: FunctionComponent<RouteComponentProps> = () => {
   return (
