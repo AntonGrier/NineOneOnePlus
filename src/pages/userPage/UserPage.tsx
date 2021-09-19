@@ -14,6 +14,7 @@ import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk'
 import { makeStyles } from '@mui/styles'
 import { theme } from '../theme'
 import clsx from 'clsx'
+import { GeoMap } from '../../ui'
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles({
     width: '100%',
     justifyContent: 'center',
     overflowY: 'auto',
-    marginBottom: '10vh',
   },
   bottomNavigation: {
     position: 'fixed',
@@ -76,8 +76,9 @@ export const UserPage: FunctionComponent<UserPageProps> = ({
             flexDirection: 'column',
             alignItems: 'center',
             position: 'absolute',
-            right: '4%',
-            bottom: '8%',
+            right: '2%',
+            bottom: '7%',
+            zIndex: 99,
           }}
         >
           <IconButton
@@ -91,25 +92,46 @@ export const UserPage: FunctionComponent<UserPageProps> = ({
               fontSize='inherit'
               style={{
                 padding: '10px',
-                color: 'black',
-                backgroundColor: '#4DBBEE',
+                color: '#4DBBEE',
+                backgroundColor: 'black',
                 borderRadius: '50px',
               }}
             />
           </IconButton>
-          <Typography variant='caption'>{callDuration}</Typography>
+          <Typography variant='caption' style={{ fontWeight: 'bold' }}>
+            {callDuration}
+          </Typography>
         </div>
       )}
       <div className={content}>
-        {location === Location.Assistance ? (
-          calling ? (
-            <></> // TODO: MAP PAGE
-          ) : (
+        <div
+          style={{
+            display: location !== Location.Assistance ? 'none' : undefined,
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: !calling ? 'none' : undefined,
+            }}
+          >
+            <GeoMap user />
+          </div>
+          <div style={{ display: calling ? 'none' : undefined }}>
             <AssistancePage setCalling={setCalling} startTimer={startTimer} />
-          )
-        ) : (
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: location === Location.Assistance ? 'none' : undefined,
+          }}
+        >
           <UserInfoPage />
-        )}
+        </div>
       </div>
       <BottomNavigation
         className={bottomNavigation}

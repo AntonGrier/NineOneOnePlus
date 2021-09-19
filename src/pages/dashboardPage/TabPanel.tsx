@@ -11,9 +11,11 @@ export function TabPanel({ children, value, index, ...other }: TabPanelProps) {
   return (
     <Box
       sx={{
-        display: value === index ? 'block' : 'none',
+        display: value === index ? 'flex' : 'none',
         boxSizing: 'border-box',
-        height: '100%',
+        flexDirection: 'column',
+        width: '100%',
+        position: 'relative',
         ...other,
       }}
     >

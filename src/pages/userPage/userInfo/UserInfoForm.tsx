@@ -1,5 +1,4 @@
-import { Button, ListItemText, TextField, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { Button, TextField, Typography } from '@mui/material'
 import { FieldArray, Form, useFormikContext } from 'formik'
 import { Fragment } from 'react'
 import { User } from '../../../models'
@@ -160,13 +159,13 @@ export const UserInfoForm = () => {
       })}
       <Button
         variant='contained'
-        style={{ width: '100%', marginTop: '20px' }}
+        style={{ width: '100%', marginTop: '20px', marginBottom: '10vh' }}
         color='primary'
         onClick={() => handleSubmit()}
         type='submit'
       >
         <Typography style={{ fontWeight: 'bold' }} variant='subtitle1'>
-          Submit
+          Save
         </Typography>
       </Button>
     </Form>
