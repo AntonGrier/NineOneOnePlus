@@ -11,7 +11,7 @@ import { handleErrors, handleSuccess } from './../../helpers'
 const URI =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:5000'
-    : 'https://htn2021be.herokuapp.com/'
+    : 'https://htn2021be.herokuapp.com'
 
 const INITIAL_VALUES = {
   username: '',

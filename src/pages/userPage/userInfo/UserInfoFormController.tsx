@@ -22,7 +22,7 @@ const INITIAL_VALUES: User = {
 const URI =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:5000'
-    : 'https://htn2021be.herokuapp.com/'
+    : 'https://htn2021be.herokuapp.com'
 
 export const UserInfoFormController = () => {
   const [editing, setEditing] = useState(false)
