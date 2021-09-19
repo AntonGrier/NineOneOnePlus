@@ -7,6 +7,12 @@ import { UserFields } from '../../utils/userFields'
 import axios from 'axios'
 import { toast, ToastOptions } from 'react-toastify'
 import { handleErrors, handleSuccess } from './../../helpers'
+
+const URI =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:5000'
+    : 'https://htn2021be.herokuapp.com/'
+
 const INITIAL_VALUES = {
   username: '',
   password: '',
@@ -64,7 +70,7 @@ export const SignUpPage: FunctionComponent<RouteComponentProps> = () => {
       weight,
     }
     try {
-      const response = await axios.post('/signup', userdata)
+      const response = await axios.post(`${URI}/signup`, userdata)
       if (response.status === 200) {
         userdata.foreach((field: any) => {
           handleSuccess(`Succesfully created an account`)

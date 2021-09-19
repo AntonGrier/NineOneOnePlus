@@ -19,6 +19,11 @@ const INITIAL_VALUES: User = {
   weight: 50,
 }
 
+const URI =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:5000'
+    : 'https://htn2021be.herokuapp.com/'
+
 export const UserInfoFormController = () => {
   const [editing, setEditing] = useState(false)
   const onValidate = (values: any) => {
@@ -58,7 +63,7 @@ export const UserInfoFormController = () => {
         height,
         weight,
       }
-      const response = await axios.put('/edit', userData)
+      const response = await axios.put(`${URI}/edit`, userData)
       if (response.status === 200) {
         userData.foreach((field: any) => {
           handleSuccess(`Succesfully updated to "${field}"`)
