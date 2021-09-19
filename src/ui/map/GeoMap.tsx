@@ -3,11 +3,12 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { Marker } from 'react-mapbox-gl'
 import Location from './location.png'
 import { GeoJSONLayer } from 'react-mapbox-gl'
-import { FunctionComponent, memo } from 'react'
+import { FunctionComponent, memo, useState } from 'react'
 import DirectionsCarSharpIcon from '@mui/icons-material/DirectionsCarSharp'
 import mapboxgl from 'mapbox-gl'
 
 /* eslint-disable import/no-webpack-loader-syntax, import/no-unresolved, @typescript-eslint/no-var-requires */
+import { createPulsingDot } from './dot'
 ;(mapboxgl as any).workerClass =
   require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 /* eslint-enable import/no-webpack-loader-syntax, import/no-unresolved, @typescript-eslint/no-var-requires*/
@@ -24,6 +25,7 @@ interface GeoMapProps {
 const locationCoordinates: any = [-123.11099370476167, 49.288940979437946]
 
 const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
+  const [clicked, setClicked] = useState(false)
   const location = user ? 'Response' : 'User'
   const geojson = {
     type: 'Feature',
@@ -38,7 +40,7 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
   return (
     <Map
       center={locationCoordinates}
-      style='mapbox://styles/mapbox/streets-v8'
+      style='mapbox://styles/mapbox/streets-v11'
       containerStyle={{
         height: '100%',
         width: '100%',
@@ -89,11 +91,63 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
           },
           labelLayerId,
         )
+
+        map.addImage('pulsing-dot', createPulsingDot(map), { pixelRatio: 2 })
+
+        map.addSource('dot-point', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: locationCoordinates, // icon position [lng, lat]
+                },
+              } as any,
+            ],
+          },
+        })
+        map.addLayer({
+          id: 'layer-with-pulsing-dot',
+          type: 'symbol',
+          source: 'dot-point',
+          layout: {
+            'icon-image': 'pulsing-dot',
+          },
+        })
+
+        map.on('click', 'layer-with-pulsing-dot', (e) => {
+          map.flyTo({
+            center: locationCoordinates,
+            zoom: 15.5,
+            speed: 0.6,
+            bearing: 90,
+            pitch: 50,
+          })
+
+          // start rotating
+          if (!clicked) {
+            setTimeout(() => rotateCamera(90 * 6), 3800)
+            setClicked(true)
+          }
+        })
+
+        // rotate around a point
+        function rotateCamera(timestamp: number) {
+          console.log(timestamp)
+          // clamp the rotation between 0 -360 degrees
+          // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+          map.rotateTo((timestamp / 6) % 360, { duration: 0 })
+          // Request the next frame of the animation.
+          setTimeout(() => rotateCamera(timestamp + 1), 10)
+        }
       }}
     >
-      <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
+      {/* <Layer type='symbol' id='marker' layout={{ 'icon-image': 'marker-15' }}>
         <Feature coordinates={locationCoordinates} />
-      </Layer>
+      </Layer> */}
       <GeoJSONLayer
         type='circle'
         id='marker2'
@@ -105,13 +159,13 @@ const GeoMapBase: FunctionComponent<GeoMapProps> = ({ user }) => {
           'text-anchor': 'top',
         }}
       />
-      <Marker coordinates={locationCoordinates} anchor='bottom'>
+      {/* <Marker coordinates={locationCoordinates} anchor='bottom'>
         {user ? (
           <DirectionsCarSharpIcon fontSize='large' />
         ) : (
           <img src={Location} />
         )}
-      </Marker>
+      </Marker> */}
     </Map>
   )
 }
