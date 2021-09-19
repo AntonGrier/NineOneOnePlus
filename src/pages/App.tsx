@@ -7,6 +7,9 @@ import { ThemeProvider } from '@mui/material/styles'
 import { useState } from 'react'
 import { useStopWatch } from '../hooks'
 import { formatCallDuration } from '../utils'
+import { LoginPage } from './auth'
+import { GetStartedPage } from './auth/GetStartedPage'
+import { SignUpPage } from './auth/SignUpPage'
 
 export const App = () => {
   const [calling, setCalling] = useState(false)
@@ -30,6 +33,9 @@ export const App = () => {
           callDuration={callDuration}
           resetTimer={resetTimer}
         />
+        <GetStartedPage path='get-started' />
+        <LoginPage path='login' />
+        <SignUpPage path='sign-up' />
       </Router>
     </ThemeProvider>
   )
