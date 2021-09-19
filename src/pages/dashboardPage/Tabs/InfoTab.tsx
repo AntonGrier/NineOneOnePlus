@@ -1,19 +1,17 @@
 import { Grid, Typography } from '@mui/material'
-import { Fragment, FunctionComponent } from 'react'
+import { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { BloodType, User } from '../../../models'
+import axios from 'axios'
 
-const values: User = {
-  name: 'Liang Liu',
-  age: 20,
-  address: '2205 Lower Mall',
-  emergencyContact: 'Linda Ma',
-  bloodType: BloodType.ABPos,
-  allergies: ['Honey', 'Peanut Butter'],
-  conditions: ['Leukemia'],
-  medications: ['Cold Medicine'],
-  BMI: 20,
-  height: 165,
-  weight: 50,
+const URI =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:5000'
+    : 'https://htn2021be.herokuapp.com/'
+
+export const getUserInfo = async () => {
+  const result = await axios.get(`${URI}/userinfo`)
+  console.log(result)
+  return result
 }
 
 enum FieldType {
@@ -73,6 +71,16 @@ const fieldGroups: FieldGroups = {
 }
 
 export const InfoTab: FunctionComponent = () => {
+  const [values, setValues] = useState<User>()
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const { data } = await getUserInfo()
+      setValues(data)
+    }
+    fetchUserInfo()
+  }, [])
+
   return (
     <div
       style={{
@@ -103,7 +111,7 @@ export const InfoTab: FunctionComponent = () => {
                     {fieldProps.label}
                   </Typography>
                   <Typography style={{ fontSize: '20px' }} variant='body1'>
-                    {values[fieldProps.fieldName]}
+                    {values ? values[fieldProps.fieldName] : '-'}
                   </Typography>
                 </Grid>
               ))}
@@ -122,7 +130,10 @@ export const InfoTab: FunctionComponent = () => {
                 {label}
               </Typography>
               <div>
-                {values[fieldName].map((value: string, index: number) => {
+                {(values && values[fieldName].length
+                  ? values[fieldName]
+                  : ['None']
+                ).map((value: string, index: number) => {
                   return (
                     <Typography
                       key={index}
